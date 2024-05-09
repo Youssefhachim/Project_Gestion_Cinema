@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier une Ville</title>
+    <!-- Ajoutez ici les liens vers les fichiers CSS nécessaires -->
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header"></div>-->
+<div>
+    <h1>Modifier une Ville</h1>
+    <form action="/updateVille" method="POST">
+        <input type="hidden" name="villeId" th:value="${ville.id}">
+        <label for="nomVille">Nom de la ville :</label>
+        <input type="text" id="nomVille" name="nomVille" th:value="${ville.name}">
+        <!-- Autres champs pour d'autres détails de la ville -->
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
+</body>
+</html>

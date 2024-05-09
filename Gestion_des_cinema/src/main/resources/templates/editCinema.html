@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier le Cinéma</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Modifier le Cinéma</h1>
+
+    <form th:action="@{/updateCinema}" method="post">
+        <input type="hidden" name="cinemaId" th:value="${cinema.id}"/>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom du cinéma:</label>
+            <input type="text" id="name" name="name" class="form-control" th:value="${cinema.name}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="ville" class="form-label">Ville:</label>
+            <select id="ville" name="villeId" class="form-select" required>
+                <option th:each="ville : ${villes}" th:value="${ville.id}" th:text="${ville.name}"
+                        th:selected="${cinema.ville.id == ville.id}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+
+    <a th:href="@{/cinemas}" class="btn btn-secondary mt-4">Retour à la liste des cinémas</a>
+</div>
+
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
