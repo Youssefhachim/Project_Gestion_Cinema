@@ -15,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class Seance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
