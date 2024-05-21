@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du Film</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-4">
+    <h1 th:text="${film.titre}"></h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img th:src="@{'/images/' + ${film.photo}}" class="img-fluid" alt="Affiche du film">
+        </div>
+        <div class="col-md-6">
+            <h2>Description</h2>
+            <p th:text="${film.description}"></p>
+            <h2>Réalisateur</h2>
+            <p th:text="${film.realisateur}"></p>
+            <h2>Date de Sortie</h2>
+            <p th:text="${#dates.format(film.dateSortie, 'dd/MM/yyyy')}"></p>
+            <h2>Durée</h2>
+            <p th:text="${film.duree} + ' Heurs'"></p>
+            <h2>Catégorie</h2>
+            <p th:text="${film.categorie.name}"></p>
+        </div>
+    </div>
+    <a th:href="@{/}" class="btn btn-secondary mt-4">Retour à l'accueil</a>
+</div>
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

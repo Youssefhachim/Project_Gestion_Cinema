@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gérer les Villes</title>
+    <!-- Ajout du lien vers le fichier CSS Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        .action-btn {
+            display: flex;
+            justify-content: center;
+        }
+        .action-btn a {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+    <h1 class="mb-4">Gérer les Villes</h1>
+
+    <form th:action="@{/villes}" method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom de la ville:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <!-- Ajout des classes de style aux éléments de la liste des villes -->
+    <h2 class="mb-4">Liste des Villes</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Action</th> <!-- Ajout de la colonne Action -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ville : ${villes}">
+                <td th:text="${ville.id}"></td>
+                <td th:text="${ville.name}"></td>
+                <td class="action-btn">
+                    <!-- Boutons d'édition et de suppression avec des icônes Font Awesome -->
+                    <a th:href="@{'/editVille?id=' + ${ville.id}}" class="btn btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <form th:action="@{'/deleteVille?id=' + ${ville.id}}" method="post" style="display: inline;">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/}" class="btn btn-secondary mt-4">Retour à l'accueil</a>
+</div>
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

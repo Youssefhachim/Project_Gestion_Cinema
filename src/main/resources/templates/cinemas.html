@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gérer les Cinémas</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Gérer les Cinémas</h1>
+
+    <form th:action="@{/cinemas}" method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom du cinéma:</label>
+            <select id="name" name="name" class="form-select" required>
+                <option value="" disabled selected>Sélectionner un cinéma existant ou entrer un nouveau</option>
+                <option th:each="cinema : ${cinemas}" th:value="${cinema.name}" th:text="${cinema.name}"></option>
+                <option value="new">Nouveau cinéma</option>
+            </select>
+        </div>
+        <div class="mb-3" id="newCinemaNameDiv" style="display: none;">
+            <label for="newCinemaName" class="form-label">Nom du nouveau cinéma:</label>
+            <input type="text" id="newCinemaName" name="newCinemaName" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="ville" class="form-label">Ville:</label>
+            <select id="ville" name="ville" class="form-select" required>
+                <option th:each="ville : ${villes}" th:value="${ville.id}" th:text="${ville.name}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+    <h2 class="mb-4">Liste des Cinémas</h2>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Ville</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cinema : ${cinemas}">
+            <td th:text="${cinema.id}"></td>
+            <td th:text="${cinema.name}"></td>
+            <td th:text="${cinema.ville.name}"></td>
+            <td>
+                <!-- Bouton Modifier -->
+                <a th:href="@{'/editCinema?id=' + ${cinema.id}}" class="btn btn-warning btn-sm">Modifier</a>
+                <!-- Bouton Supprimer -->
+                <form th:action="@{'/deleteCinema?id=' + ${cinema.id}}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-secondary mt-4">Retour à l'accueil</a>
+</div>
+
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('name').addEventListener('change', function() {
+        var newCinemaNameDiv = document.getElementById('newCinemaNameDiv');
+        if (this.value === 'new') {
+            newCinemaNameDiv.style.display = 'block';
+            document.getElementById('newCinemaName').required = true;
+        } else {
+            newCinemaNameDiv.style.display = 'none';
+            document.getElementById('newCinemaName').required = false;
+        }
+    });
+</script>
+</body>
+</html>
