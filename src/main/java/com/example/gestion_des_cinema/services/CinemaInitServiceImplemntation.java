@@ -4,13 +4,14 @@ import com.example.gestion_des_cinema.dao.entities.*;
 import com.example.gestion_des_cinema.dao.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
     @Transactional
     @Override
     public void initVilles() {
-        /*
+
         Stream.of("casablanca","Marrakech","Rabat","Tanger","Fes","Agadir").forEach(villeName->{
                 Ville ville=new Ville();
                 ville.setId(null);
@@ -53,31 +54,41 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
                 villeRepository.save(ville);
                 });
 
-         */
+         
     }
 
     @Transactional
     @Override
     public void initCinemas() {
-        /*
-        villeRepository.findAll().forEach(v->{
-            Stream.of("MegaRama","IMax","Founoun","Chahrazad","Daouliz").forEach(nameCinema->{
-                Cinema cinema=new Cinema();
+        List<String> allCinemas = Stream.of("MegaRama", "IMax", "Founoun", "Chahrazad", "Daouliz").collect(Collectors.toList());
+
+        villeRepository.findAll().forEach(v -> {
+            List<String> cinemasForCity;
+
+            if (v.getName().equalsIgnoreCase("casablanca")) {
+
+                cinemasForCity = allCinemas;
+            } else {
+
+                Collections.shuffle(allCinemas);
+                cinemasForCity = allCinemas.subList(0, 3);
+            }
+
+            cinemasForCity.forEach(nameCinema -> {
+                Cinema cinema = new Cinema();
                 cinema.setName(nameCinema);
-                cinema.setNombre_salle(3+(int)(Math.random()*7));
+                cinema.setNombre_salle(3 + (int) (Math.random() * 7));
                 cinema.setVille(v);
                 cinemaRepository.save(cinema);
             });
         });
-
-         */
     }
 
 
     @Transactional
     @Override
     public void initSalles() {
-        /*
+
         cinemaRepository.findAll().forEach(cinema->{
             for (int i=0;i< cinema.getNombre_salle();i++)
             {
@@ -89,7 +100,7 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
             }
         });
 
-         */
+
 
     }
 
@@ -98,7 +109,7 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
     @Transactional
     @Override
     public void initPlaces() {
-        /*
+
         salleRepository.findAll().forEach(salle->{
             for (int i=0;i<salle.getNombrePlace();i++){
                 Place place=new Place();
@@ -108,13 +119,13 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
             }
         });
 
-         */
+
     }
 
     @Transactional
     @Override
     public void initSeances() {
-        /*
+
         DateFormat dateFormat=new SimpleDateFormat("HH:mm");
         Stream.of("12:00","14:00","16:00","17:00","19:00","21:00").forEach(s->{
             Seance seance = new Seance();
@@ -128,27 +139,27 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
 
         });
 
-         */
+
 
     }
 
     @Transactional
     @Override
     public void initCategories() {
-        /*
+
         Stream.of("history","Action","Fiction","Drama","history","Action","Fiction","Drama","history","Action","Fiction","Drama").forEach(cat->{
             Categorie categorie = new Categorie();
             categorie.setName(cat);
             categoriesRepository.save(categorie);
         });
 
-         */
+
     }
 
     @Transactional
     @Override
     public void initFilms() {
-        /*
+
         double[] durees = new double[]{1, 1.5, 2, 2.5, 3};
         List<Categorie> categories = categoriesRepository.findAll();
         Stream.of("Game of thrones", "THE 1000", "Seigneur des anneaux", "Spider man", "IRON Man", "cat women").forEach(titreFilm -> {
@@ -160,14 +171,14 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
             filmRepository.save(film);
         });
 
-         */
+
 
     }
 
     @Transactional
     @Override
     public void initProjections() {
-        /*
+
         double[] prices=new double[]{30,50,60,70,80,90,100};
         villeRepository.findAll().forEach(ville -> {
             ville.getCinemas().forEach(cinema -> {
@@ -187,13 +198,13 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
             });
         });
 
-         */
+
     }
 
     @Transactional
     @Override
     public void initTickets() {
-        /*
+
         projectionRepository.findAll().forEach(t->{
             t.getSalle().getPlaces().forEach(place -> {
                 TicketPlace ticket=new TicketPlace();
@@ -205,6 +216,6 @@ public class CinemaInitServiceImplemntation implements ICinemaInitService{
             });
         });
 
-         */
+
     }
 }

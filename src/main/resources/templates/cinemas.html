@@ -5,16 +5,78 @@
     <title>Gérer les Cinémas</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: rgba(0, 123, 255, 0.8); /* Couleur de fond de la navbar */
+            animation: slide-down 1s ease-out;
+        }
+        @keyframes slide-down {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .content-main {
+            animation: fade-in 2s ease-in;
+            color: black; /* Couleur du texte en noir pour contraste */
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .cinema-card {
+            animation: fade-up 0.5s ease-in-out;
+            transition: transform 0.3s;
+            background-color: white; /* Couleur de fond blanche pour les cartes */
+            color: black; /* Couleur du texte en noir */
+        }
+        .cinema-card:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fade-up {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .table {
+            background-color: white; /* Couleur de fond blanche pour la table */
+            color: black; /* Couleur du texte en noir */
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f9f9f9; /* Couleur de fond alternée */
+        }
+    </style>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div class="navbar" th:replace="fragments/header :: header"></div>
 
-<div class="container mt-4">
-    <h1 class="mb-4">Gérer les Cinémas</h1>
+<div class="container mt-4 content-main">
+    <h1 class="mb-4"  style="color: white">Gérer les Cinémas</h1>
 
     <form th:action="@{/cinemas}" method="post" class="mb-4">
         <div class="mb-3">
-            <label for="name" class="form-label">Nom du cinéma:</label>
+            <label for="name" class="form-label"  style="color: white">Nom du cinéma:</label>
             <select id="name" name="name" class="form-select" required>
                 <option value="" disabled selected>Sélectionner un cinéma existant ou entrer un nouveau</option>
                 <option th:each="cinema : ${cinemas}" th:value="${cinema.name}" th:text="${cinema.name}"></option>
@@ -26,14 +88,15 @@
             <input type="text" id="newCinemaName" name="newCinemaName" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="ville" class="form-label">Ville:</label>
+            <label for="ville" class="form-label" style="color: white">Ville:</label>
             <select id="ville" name="ville" class="form-select" required>
                 <option th:each="ville : ${villes}" th:value="${ville.id}" th:text="${ville.name}"></option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
-    <h2 class="mb-4">Liste des Cinémas</h2>
+
+    <h2 class="mb-4"  style="color: white">Liste des Cinémas</h2>
     <table class="table table-striped table-hover">
         <thead class="table-dark">
         <tr>
@@ -44,7 +107,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cinema : ${cinemas}">
+        <tr th:each="cinema : ${cinemas}" class="cinema-card">
             <td th:text="${cinema.id}"></td>
             <td th:text="${cinema.name}"></td>
             <td th:text="${cinema.ville.name}"></td>

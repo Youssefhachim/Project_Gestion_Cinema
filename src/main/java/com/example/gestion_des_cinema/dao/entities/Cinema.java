@@ -14,6 +14,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+
 public class Cinema implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +24,11 @@ public class Cinema implements Serializable {
     private double latitude;
     private  double altitude;
     private  int nombre_salle;
+    @ManyToOne
+    @JoinColumn(name = "ville_id", nullable = false)
+    private Ville ville;
+
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Salle> salles;
-    @ManyToOne
-    private Ville ville;
 
 }

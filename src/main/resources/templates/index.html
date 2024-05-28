@@ -7,38 +7,83 @@
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
     <style>
         body {
-            background-image: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-image: url('https://images.pexels.com/photos/1252508/pexels-photo-1252508.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            font-family: Arial, sans-serif;
         }
         .navbar-nav .nav-link {
             font-weight: bold;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.8); /* Optionnel : pour rendre les cartes semi-transparentes */
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
         }
         .text-white {
             color: white;
+        }
+        .navbar {
+            animation: slide-down 1s ease-out;
+        }
+        .content-main {
+            animation: fade-in 2s ease-in;
+        }
+        @keyframes slide-down {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .input-group .form-control {
+            border-right: 0;
+        }
+        .input-group .btn {
+            border-left: 0;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <!-- Navbar -->
-    <div th:replace="fragments/header :: header"></div>
+    <div class="navbar" th:replace="~{fragments/header :: header}"></div>
     <!-- Fin de la navbar -->
 
     <!-- Contenu principal -->
-    <div class="container mt-4 text-white">
-        <h1>Bienvenue dans la gestion de cinéma</h1>
-        <p>C'est ici que vous pouvez gérer les villes, les cinémas, les films, les projections et les tickets.</p>
-    </div>
+    <div class="container mt-4 text-white content-main">
+        <h1>Bienvenue au cinéma</h1>
+        </div>
     <!-- Fin du contenu principal -->
 
     <!-- Section de recherche et liste des films -->
-    <div class="container mt-4 text-white">
+    <div class="container mt-4 text-white content-main">
         <h1 class="mb-4">Liste des Films</h1>
 
         <!-- Formulaire de recherche -->
@@ -69,6 +114,7 @@
     </div>
     <!-- Fin de la section de recherche et liste des films -->
 </div>
+
 <!-- Ajout du JS de Bootstrap -->
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
 </body>

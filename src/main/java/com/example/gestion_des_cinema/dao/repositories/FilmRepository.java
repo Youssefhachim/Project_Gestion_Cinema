@@ -9,6 +9,5 @@ import java.util.List;
 @RepositoryRestController
 public interface FilmRepository extends JpaRepository<Film, Long> {
     List<Film> findByTitreContainingIgnoreCase(String titre);
-
     List<Film> findByCategorieId(Long categorieId);
 }

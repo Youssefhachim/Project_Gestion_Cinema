@@ -82,6 +82,7 @@ public class CinemaRestController {
         model.addAttribute("films", films);
         return "index";
     }
+
     @GetMapping("/villes")
     public String villes(Model model) {
         model.addAttribute("villes", villeRepository.findAll());
@@ -256,6 +257,8 @@ public class CinemaRestController {
 
         return "redirect:/cinemas"; // Redirigez vers la liste des cinémas après la suppression
     }
+
+
 }
 
 @Data

@@ -5,11 +5,66 @@
     <title>Détails du Film</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Couleur de fond légère */
+            font-family: Arial, sans-serif;
+            color: #343a40; /* Couleur du texte */
+        }
+        .header {
+            animation: slide-down 1s ease-out;
+        }
+        .content {
+            animation: fade-in 1s ease-in;
+        }
+        @keyframes slide-down {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .img-fluid {
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .img-fluid:hover {
+            transform: scale(1.05);
+        }
+        h1, h2 {
+            color: #007bff; /* Couleur des titres */
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div class="header" th:replace="fragments/header :: header"></div>
 
-<div class="container mt-4">
+<div class="container mt-4 content">
     <h1 th:text="${film.titre}"></h1>
     <div class="row">
         <div class="col-md-6">
@@ -23,7 +78,7 @@
             <h2>Date de Sortie</h2>
             <p th:text="${#dates.format(film.dateSortie, 'dd/MM/yyyy')}"></p>
             <h2>Durée</h2>
-            <p th:text="${film.duree} + ' Heurs'"></p>
+            <p th:text="${film.duree} + ' Heures'"></p>
             <h2>Catégorie</h2>
             <p th:text="${film.categorie.name}"></p>
         </div>

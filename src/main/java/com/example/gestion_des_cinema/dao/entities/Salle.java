@@ -21,14 +21,19 @@ public class Salle {
     private Long id;
     private String name;
     private int nombrePlace;
+
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Cinema cinema;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "salle")
+    @OneToMany(mappedBy = "salle", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Place> places;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "salle")
+    @OneToMany(mappedBy = "salle", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<FilmProjection> filmProjections;
+
+
 
 }

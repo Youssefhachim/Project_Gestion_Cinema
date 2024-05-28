@@ -17,7 +17,7 @@ public class GestionDesCinemaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        iCinemaInitService.initVilles();
+    /*    iCinemaInitService.initVilles();
         iCinemaInitService.initCinemas();
         iCinemaInitService.initSalles();
         iCinemaInitService.initPlaces();
@@ -26,5 +26,7 @@ public class GestionDesCinemaApplication implements CommandLineRunner {
         iCinemaInitService.initFilms();
         iCinemaInitService.initProjections();
         iCinemaInitService.initTickets();
+
+     */
     }
 }

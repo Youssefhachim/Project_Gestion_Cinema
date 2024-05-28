@@ -4,19 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier une Ville</title>
-    <!-- Ajoutez ici les liens vers les fichiers CSS nécessaires -->
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            color: #343a40;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fade-in 1s ease-in-out;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-<!--<div th:replace="fragments/header :: header"></div>-->
-<div>
+<div class="container">
     <h1>Modifier une Ville</h1>
     <form action="/updateVille" method="POST">
         <input type="hidden" name="villeId" th:value="${ville.id}">
-        <label for="nomVille">Nom de la ville :</label>
-        <input type="text" id="nomVille" name="nomVille" th:value="${ville.name}">
-        <!-- Autres champs pour d'autres détails de la ville  -->
-        <button type="submit">Enregistrer</button>
+        <div class="mb-3">
+            <label for="nomVille" class="form-label">Nom de la ville :</label>
+            <input type="text" id="nomVille" name="nomVille" class="form-control" th:value="${ville.name}" required>
+        </div>
+        <!-- Ajoutez d'autres champs pour d'autres détails de la ville ici -->
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
     </form>
 </div>
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
